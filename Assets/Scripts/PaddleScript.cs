@@ -23,8 +23,7 @@ public class PaddleScript : MonoBehaviour
 
         if(Input.GetKey(upKey)) {
             move = 1;
-        }
-        else if(Input.GetKey(downKey)) {
+        } else if(Input.GetKey(downKey)) {
             move = -1;
         }
 
