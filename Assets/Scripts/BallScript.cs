@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallScript : MonoBehaviour {
@@ -14,28 +15,37 @@ public class BallScript : MonoBehaviour {
             rb = GetComponent<Rigidbody2D>();
         }
 
-        ResetBall();
+        LaunchBall();
     }
 
     // Update is called once per frame
     void Update()
     {
         if(!hasStarted && Input.GetKeyDown(KeyCode.Space)) {
-            ResetBall();
+            LaunchBall();
         }
         if(hasStarted) {
             rb.linearVelocity = direction * speed;
         }
     }
 
-    void ResetBall() {
+    void LaunchBall() {
         if(!hasStarted) {
             direction = new Vector2(
                 Random.Range(-1f, 1f), 
                 Random.Range(-1f, 1f)
             ).normalized;
-            
+
             hasStarted = true;
+        }
+    }
+    
+    void OnCollisionEnter2D(Collision2D collision) {
+        if(collision.gameObject.CompareTag("Wall")) {
+            direction.y = -direction.y;
+        }
+        if(collision.gameObject.CompareTag("Paddle")) {
+            direction.x = -direction.x;
         }
     }
 }
