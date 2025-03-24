@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour {
     public float speed = 10f;
+    public float launchDelay = 2f;
     private Rigidbody2D rb;
 
     private Vector2 direction;
@@ -20,19 +21,39 @@ public class BallScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(!hasStarted && Input.GetKeyDown(KeyCode.Space)) {
-            LaunchBall();
+        if(!hasStarted) {
+            Vector3 screenCenter = new Vector3(
+                Screen.width / 2,
+                Screen.height / 2,
+                0f
+            );
+            
+            Vector3 sceneCenter = Camera.main.ScreenToWorldPoint(screenCenter);
+            this.transform.position = new Vector3(sceneCenter.x, sceneCenter.y, 0f);
+            Invoke("LaunchBall", 1.25f);
         }
+        
         if(hasStarted) {
             rb.linearVelocity = direction * speed;
+        }
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+        if(screenPos.x > Screen.width || screenPos.x < 0) {
+          hasStarted = false;
         }
     }
 
     void LaunchBall() {
         if(!hasStarted) {
+            float xSpeed = 1f;
+            float val = Random.Range(-1f, 1f);
+            if(val < 0) {
+              xSpeed = -1f;
+            }
+
             direction = new Vector2(
-                Random.Range(-1f, 1f), 
-                Random.Range(-1f, 1f)
+                xSpeed,
+                1f
             ).normalized;
 
             hasStarted = true;
