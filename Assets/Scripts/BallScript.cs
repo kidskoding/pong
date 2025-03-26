@@ -13,7 +13,7 @@ public class BallScript : MonoBehaviour {
     {
         if(rb == null) {
             rb = GetComponent<Rigidbody2D>();
-        }
+        } 
 
         LaunchBall();
     }
