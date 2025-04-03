@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1743713111",
+        "python_version": "3.10.12 (main, Mar 29 2025, 18:04:40) [GCC 14.2.1 20250110 (Red Hat 14.2.1-7)]",
+        "command_line_arguments": "/home/anirudh/UIUC/Illini-VEX-Robotics/vex-software/.venv/bin/mlagents-learn config/trainer_config.yaml --run-id=enemy-ai-selfplay --force",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.6.0+cu124",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1743713135"
+    },
+    "total": 24.32281305100014,
+    "count": 1,
+    "self": 0.023411691000546853,
+    "children": {
+        "run_training.setup": {
+            "total": 0.01977214799990179,
+            "count": 1,
+            "self": 0.01977214799990179
+        },
+        "TrainerController.start_learning": {
+            "total": 24.27962921199969,
+            "count": 1,
+            "self": 0.0004350339995653485,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 24.279159604000142,
+                    "count": 1,
+                    "self": 24.279159604000142
+                },
+                "trainer_threads": {
+                    "total": 2.6170000637648627e-06,
+                    "count": 1,
+                    "self": 2.6170000637648627e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 3.1956999919202644e-05,
+                    "count": 1,
+                    "self": 3.1956999919202644e-05
+                }
+            }
+        }
+    }
+}

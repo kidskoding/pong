@@ -1,0 +1,16 @@
+behaviors:
+  EnemyPaddle:
+    trainer_type: ppo
+    self_play:
+      save_steps: 50000 
+      swap_steps: 20000  
+      team_change: 0.5
+      window: 10        
+    hyperparameters:
+      batch_size: 64
+      buffer_size: 1024
+      learning_rate: 0.0003
+    network_settings:
+      normalize: true
+      hidden_units: 128
+      num_layers: 2
