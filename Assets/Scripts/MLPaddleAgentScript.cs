@@ -79,18 +79,6 @@ public class PaddleAgentScript : Agent {
         transform.position = paddlePosition;
     }
     
-    /* public override void Heuristic(in ActionBuffers actionsOut) {
-        var discreteActions = actionsOut.DiscreteActions;
-        
-        if(Input.GetKey(KeyCode.UpArrow)) {
-            discreteActions[0] = 1;
-        } else if(Input.GetKey(KeyCode.DownArrow)) {
-            discreteActions[0] = 2;
-        } else {
-            discreteActions[0] = 0;
-        }
-    } */
-    
     public override void OnEpisodeBegin() {
         if(ball != null) {
             Debug.Log("Episode beginning. Resetting agent state.");

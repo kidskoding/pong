@@ -3,22 +3,22 @@
         "elo": 1200.0,
         "checkpoints": [
             {
-                "steps": 640,
-                "file_path": "results/enemypaddle/EnemyPaddle/EnemyPaddle-640.onnx",
+                "steps": 1536,
+                "file_path": "results/enemypaddle/EnemyPaddle/EnemyPaddle-1536.onnx",
                 "reward": null,
-                "creation_time": 1743737567.6419907,
+                "creation_time": 1743740771.939956,
                 "auxillary_file_paths": [
-                    "results/enemypaddle/EnemyPaddle/EnemyPaddle-640.pt"
+                    "results/enemypaddle/EnemyPaddle/EnemyPaddle-1536.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 640,
+            "steps": 1536,
             "file_path": "results/enemypaddle/EnemyPaddle.onnx",
             "reward": null,
-            "creation_time": 1743737567.6419907,
+            "creation_time": 1743740771.939956,
             "auxillary_file_paths": [
-                "results/enemypaddle/EnemyPaddle/EnemyPaddle-640.pt"
+                "results/enemypaddle/EnemyPaddle/EnemyPaddle-1536.pt"
             ]
         }
     },

@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour {
     public float speed = 10f;
-    public float launchDelay = 2f;
     private Rigidbody2D rb;
-
     private Vector2 direction;
     private bool hasStarted = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         if(rb == null) {
             rb = GetComponent<Rigidbody2D>();
@@ -17,7 +14,6 @@ public class BallScript : MonoBehaviour {
         LaunchBall();
     }
 
-    // Update is called once per frame
     void Update() {
         if(!hasStarted) {
             Vector3 screenCenter = new Vector3(
@@ -36,13 +32,13 @@ public class BallScript : MonoBehaviour {
         }
 
         Vector3 screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
-
         var paddleAi = GameObject.FindWithTag("AIPaddle").GetComponent<PaddleAgentScript>();
+
         if(screenPos.x > Screen.width) {
             paddleAi.AddReward(-1.0f);
             hasStarted = false;
         } else if(screenPos.x < 0) {
-            paddleAi.AddReward(+1.0f);
+            paddleAi.AddReward(1.0f);
             hasStarted = false;
         }
     }
@@ -63,36 +59,25 @@ public class BallScript : MonoBehaviour {
             hasStarted = true;
         }
     }
-    
+
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.CompareTag("Wall")) {
             direction.y = -direction.y;
         }
 
         if(collision.gameObject.CompareTag("Paddle") || collision.gameObject.CompareTag("AIPaddle")) {
-            // Debug.Log("initial direction.x, direction.y");
-            // Debug.Log(direction.x);
-            // Debug.Log(direction.y);
-
-            bool final_vector_points_right = direction.x < 0;
+            bool finalVectorPointsRight = direction.x < 0;
             direction.x = Mathf.Abs(direction.x);
 
-            // dtheta is the change in angle (based on relative position of ball on paddle)
             float dtheta = (transform.position.y - collision.gameObject.transform.position.y) / 1.5f;
-            
-            float theta_initial = Mathf.Atan2(direction.y, direction.x);
-            float theta_final = theta_initial + dtheta;
+            float thetaInitial = Mathf.Atan2(direction.y, direction.x);
+            float thetaFinal = thetaInitial + dtheta;
 
-            float max_ball_angle = Mathf.PI/2;
-            theta_final = Mathf.Clamp(theta_final, -max_ball_angle, max_ball_angle);
+            float maxBallAngle = Mathf.PI / 4;
+            thetaFinal = Mathf.Clamp(thetaFinal, -maxBallAngle, maxBallAngle);
 
-            if (final_vector_points_right) {
-                direction.x = Mathf.Cos(theta_final);
-            } else {
-                direction.x = -Mathf.Cos(theta_final);
-            }
-
-            direction.y = Mathf.Sin(theta_final);
+            direction.x = finalVectorPointsRight ? Mathf.Cos(thetaFinal) : -Mathf.Cos(thetaFinal);
+            direction.y = Mathf.Sin(thetaFinal);
         }
     }
 }
