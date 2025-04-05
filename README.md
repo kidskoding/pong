@@ -1,2 +1,2 @@
 # pong
-A remake of the popular ATARI game pong, to be used in the future for training various AI models 
+A reinforcement learning (RL) implementation of the popular ATARI game pong using C#, Unity, and Unity's ML Agents
