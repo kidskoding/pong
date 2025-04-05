@@ -7,10 +7,7 @@ public class BallScript : MonoBehaviour {
     private bool hasStarted = false;
 
     void Start() {
-        if(rb == null) {
-            rb = GetComponent<Rigidbody2D>();
-        }
-
+        rb = GetComponent<Rigidbody2D>();
         LaunchBall();
     }
 
@@ -41,6 +38,7 @@ public class BallScript : MonoBehaviour {
             paddleAi.AddReward(1.0f);
             hasStarted = false;
         }
+        Debug.Log(paddleAi.GetCumulativeReward());
     }
 
     void LaunchBall() {
@@ -66,6 +64,11 @@ public class BallScript : MonoBehaviour {
         }
 
         if(collision.gameObject.CompareTag("Paddle") || collision.gameObject.CompareTag("AIPaddle")) {
+            if(collision.gameObject.CompareTag("AIPaddle")) {
+                var paddleAi = collision.gameObject.GetComponent<PaddleAgentScript>();
+                paddleAi.AddReward(+0.2f);
+            }
+
             bool finalVectorPointsRight = direction.x < 0;
             direction.x = Mathf.Abs(direction.x);
 

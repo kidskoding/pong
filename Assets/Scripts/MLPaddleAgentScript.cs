@@ -25,13 +25,11 @@ public class PaddleAgentScript : Agent {
     }
     
     // Update is called once per frame to show debug visuals
-    void Update() {
-        if(debugMode) {
-            Debug.Log($"Action: Last action taken, Reward: {GetCumulativeReward()}");
-            
-            if(ball != null) {
-                Debug.DrawLine(transform.position, ball.transform.position, Color.red);
-            }
+    void FixedUpdate() {
+        RequestDecision();
+
+        if(debugMode && ball != null) {
+            Debug.DrawLine(transform.position, ball.transform.position, Color.red);
         }
     }
     
@@ -44,7 +42,7 @@ public class PaddleAgentScript : Agent {
             sensor.AddObservation(ballRelativePos.x / 10f);
             sensor.AddObservation(ballRelativePos.y / 10f);
             
-            Vector2 ballVelocity = ballRb.linearVelocity.normalized;
+            Vector2 ballVelocity = ballRb.linearVelocity;
             sensor.AddObservation(ballVelocity.x);
             sensor.AddObservation(ballVelocity.y);
         } else {
@@ -61,27 +59,36 @@ public class PaddleAgentScript : Agent {
         
         Vector3 paddlePosition = transform.position;
         
-        switch(action) {
-            case 0:
-                Debug.Log("0 is chosen");
-                break;
+        switch (action) {
             case 1:
-                Debug.Log("1 is chosen");
-                paddlePosition.y += speed * Time.deltaTime;
+                if (paddlePosition.y < verticalBoundary) {
+                    paddlePosition.y += speed * Time.deltaTime;
+                } else {
+                    AddReward(-0.01f);
+                }
                 break;
             case 2:
-                Debug.Log("2 is chosen");
-                paddlePosition.y -= speed * Time.deltaTime;
+                if (paddlePosition.y > -verticalBoundary) {
+                    paddlePosition.y -= speed * Time.deltaTime;
+                } else {
+                    AddReward(-0.01f);
+                }
                 break;
         }
         
-        paddlePosition.y = Mathf.Clamp(paddlePosition.y, -verticalBoundary, verticalBoundary);
-        transform.position = paddlePosition;
+        transform.position = new Vector3(
+            paddlePosition.x, 
+            Mathf.Clamp(paddlePosition.y, -verticalBoundary, verticalBoundary), 
+            paddlePosition.z
+          );
+    
+        if(ball != null) {
+            float distanceToBallY = Mathf.Abs(transform.position.y - ball.transform.position.y);
+            AddReward(-distanceToBallY * 0.001f);
+        }
     }
     
     public override void OnEpisodeBegin() {
-        if(ball != null) {
-            Debug.Log("Episode beginning. Resetting agent state.");
-        }
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 }

@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1743856966",
+        "python_version": "3.10.12 (main, Mar 29 2025, 18:04:40) [GCC 14.2.1 20250110 (Red Hat 14.2.1-7)]",
+        "command_line_arguments": "/home/anirudh/UIUC/Illini-VEX-Robotics/vex-software/.venv/bin/mlagents-learn config/trainer_config.yaml --run-id=pong_train --env=localhost:8000 --load --force",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.6.0+cu124",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1743856966"
+    },
+    "total": 0.03967279299922666,
+    "count": 1,
+    "self": 0.006743335999999545,
+    "children": {
+        "run_training.setup": {
+            "total": 0.019369351999557693,
+            "count": 1,
+            "self": 0.019369351999557693
+        },
+        "TrainerController.start_learning": {
+            "total": 0.01356010499966942,
+            "count": 1,
+            "self": 0.00027934299941989593,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 0.013266929000565142,
+                    "count": 1,
+                    "self": 0.013266929000565142
+                },
+                "trainer_threads": {
+                    "total": 9.929999578162096e-07,
+                    "count": 1,
+                    "self": 9.929999578162096e-07
+                },
+                "TrainerController._save_models": {
+                    "total": 1.283999972656602e-05,
+                    "count": 1,
+                    "self": 1.283999972656602e-05
+                }
+            }
+        }
+    }
+}
