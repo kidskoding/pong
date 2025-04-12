@@ -51,7 +51,7 @@ behaviors:
       initial_elo: 1200.0
     behavioral_cloning: null
 env_settings:
-  env_path: ./Build/pong-executable_x86_64
+  env_path: null
   env_args: null
   base_port: 5005
   num_envs: 1
@@ -76,10 +76,10 @@ checkpoint_settings:
   initialize_from: null
   load_model: false
   resume: false
-  force: false
+  force: true
   train_model: false
   inference: false
   results_dir: results
 torch_settings:
-  device: null
+  device: cpu
 debug: false
